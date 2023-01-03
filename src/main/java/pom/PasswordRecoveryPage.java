@@ -6,12 +6,12 @@ import org.openqa.selenium.WebDriver;
 public class PasswordRecoveryPage {
     private WebDriver driver;
 
-    private By topButtonOrder = By.className("Button_Button__ra12g"); //верхняя кнопка Заказать
-    private By
-    private By
-    private By
+    private By buttonEnterPasswordRecoveryPage = By.className("Auth_link__1fOlj");
 
-    public HomePage(WebDriver driver) {
+    public PasswordRecoveryPage(WebDriver driver) {
         this.driver = driver;
+    }
+    public void clickEnterPasswordRecoveryPage() {
+        driver.findElement(buttonEnterPasswordRecoveryPage).click();
     }
 }
