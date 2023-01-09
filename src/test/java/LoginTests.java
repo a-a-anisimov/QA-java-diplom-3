@@ -1,3 +1,5 @@
+import io.qameta.allure.junit4.DisplayName;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -15,20 +17,18 @@ public class LoginTests {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
-    @Test //вход по кнопке «Войти в аккаунт» на главной
+    @Test
+    @DisplayName("Login across HomePage")
     public void loginAcrossHomePage() {
         driver.get("https://stellarburgers.nomoreparties.site");
         HomePage homePage = new HomePage(driver);
         homePage.clickButtonPersonalAccount();
 
         loginPage = new LoginPage(driver);
-        loginPage.setEmail("aaa1@ya.ru");
-        loginPage.setPassword("aaaaaa1");
-        loginPage.clickButtonEnter();
-
-
+        loginPage.setData("aaa1@ya.ru", "aaaaaa1");
     }
-    @Test //вход через кнопку «Личный кабинет» (+ проверка перехода по клику на «Личный кабинет»)
+    @Test
+    @DisplayName("Login across PersonalAccountPage")
     public void loginAcrossPersonalAccountPage() {
         driver.get("https://stellarburgers.nomoreparties.site");
         HomePage homePage = new HomePage(driver);
@@ -36,37 +36,30 @@ public class LoginTests {
         PersonalAccountPage personalAccountPage = new PersonalAccountPage(driver);
 
         loginPage = new LoginPage(driver);
-        loginPage.setEmail("aaa1@ya.ru");
-        loginPage.setPassword("aaaaaa1");
-        loginPage.clickButtonEnter();
+        loginPage.setData("aaa1@ya.ru", "aaaaaa1");
     }
-    @Test //вход через кнопку в форме регистрации
+    @Test
+    @DisplayName("Login across RegistrationPage")
     public void loginAcrossRegistrationPage(){
         driver.get("https://stellarburgers.nomoreparties.site/register");
         RegistrationPage registrationPage = new RegistrationPage(driver);
-        registrationPage.scrollDownPage();
         registrationPage.clickButtonEnter();
 
         loginPage = new LoginPage(driver);
-        loginPage.setEmail("aaa1@ya.ru");
-        loginPage.setPassword("aaaaaa1");
-        loginPage.clickButtonEnter();
+        loginPage.setData("aaa1@ya.ru", "aaaaaa1");
     }
-    @Test //вход через кнопку в форме восстановления пароля
+    @Test
+    @DisplayName("Login across RecoveryPassword")
     public void loginAcrossRecoveryPassword(){
         driver.get("https://stellarburgers.nomoreparties.site/forgot-password");
         PasswordRecoveryPage passwordRecoveryPage = new PasswordRecoveryPage(driver);
         passwordRecoveryPage.clickEnterPasswordRecoveryPage();
 
         loginPage = new LoginPage(driver);
-        loginPage.setEmail("aaa1@ya.ru");
-        loginPage.setPassword("aaaaaa1");
-        loginPage.clickButtonEnter();
+        loginPage.setData("aaa1@ya.ru", "aaaaaa1");
     }
-
-
-     /*@After
+    @After
     public void tearDown() {
         driver.quit();
-    }*/
+    }
 }

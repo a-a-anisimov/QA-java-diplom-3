@@ -2,17 +2,17 @@ package pom;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.JavascriptExecutor;
 
 public class RegistrationPage {
     private WebDriver driver;
 
-    private By inputRegistrationFieldName = By.xpath(".//fieldset[1]/div/div/input");
-    private By inputRegistrationFieldEmail = By.xpath(".//fieldset[2]/div/div/input");
-    private By inputRegistrationFieldPassword = By.xpath(".//fieldset[3]/div/div/input");
-    private By buttonRegistration = By.xpath(".//main/div/form/button");
+    private By inputRegistrationFieldName = By.xpath(".//*[text()='Имя']/../*[@type='text']");
+    private By inputRegistrationFieldEmail = By.xpath("//*[text()='Email']/../*[@type='text']");
+    private By inputRegistrationFieldPassword = By.xpath(".//*[@type='password']");
+    //private By buttonRegistration = By.xpath(".//main/div/form/button");
+    private By buttonRegistration = By.xpath(".//*[text()='Зарегистрироваться']");
     private By buttonEnterOnRegistrationPage = By.className("Auth_link__1fOlj");
-    private By scrollDown = By.className("Auth_link__1fOlj");
+    private By messageIncorrectPassword = By.xpath(".//p[text()='Некорректный пароль']");
 
     public RegistrationPage(WebDriver driver) {
         this.driver = driver;
@@ -33,7 +33,7 @@ public class RegistrationPage {
     public void clickButtonEnter () {
         driver.findElement(buttonEnterOnRegistrationPage).click();
     }
-    public void scrollDownPage() {
-        ((JavascriptExecutor)driver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
+    public void getTextFromMessageIncorrectPassword() {
+        driver.findElement(messageIncorrectPassword).getText();
     }
 }

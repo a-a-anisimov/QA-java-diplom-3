@@ -15,13 +15,9 @@ public class LoginPage {
         this.driver = driver;
     }
 
-    public void setEmail(String email) {
+    public void setData(String email, String password) {
         driver.findElement(inputLoginFieldEmail).sendKeys(email);
-    }
-    public void setPassword(String password) {
         driver.findElement(inputLoginFieldPassword).sendKeys(password);
-    }
-    public void clickButtonEnter () {
         driver.findElement(buttonEnterOnLoginPage).click();
     }
 }
