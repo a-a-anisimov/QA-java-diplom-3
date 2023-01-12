@@ -5,19 +5,15 @@ import org.openqa.selenium.WebDriver;
 
 public class RegistrationPage {
     private WebDriver driver;
-
     private By inputRegistrationFieldName = By.xpath(".//*[text()='Имя']/../*[@type='text']");
     private By inputRegistrationFieldEmail = By.xpath("//*[text()='Email']/../*[@type='text']");
     private By inputRegistrationFieldPassword = By.xpath(".//*[@type='password']");
-    //private By buttonRegistration = By.xpath(".//main/div/form/button");
     private By buttonRegistration = By.xpath(".//*[text()='Зарегистрироваться']");
     private By buttonEnterOnRegistrationPage = By.className("Auth_link__1fOlj");
-    private By messageIncorrectPassword = By.xpath(".//p[text()='Некорректный пароль']");
 
     public RegistrationPage(WebDriver driver) {
         this.driver = driver;
     }
-
     public void setName (String name) {
         driver.findElement(inputRegistrationFieldName).sendKeys(name);
     }
@@ -32,8 +28,5 @@ public class RegistrationPage {
     }
     public void clickButtonEnter () {
         driver.findElement(buttonEnterOnRegistrationPage).click();
-    }
-    public void getTextFromMessageIncorrectPassword() {
-        driver.findElement(messageIncorrectPassword).getText();
     }
 }

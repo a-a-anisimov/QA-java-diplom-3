@@ -1,7 +1,6 @@
 import com.github.javafaker.Faker;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +11,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import pom.RegistrationPage;
 
 import java.util.concurrent.TimeUnit;
+
+import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 
@@ -40,9 +41,9 @@ public class RegistrationTests {
     @Before
     public void setUp(){
         driver = new ChromeDriver();
-        driver.get("https://stellarburgers.nomoreparties.site/register");
-        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
+        driver.get("https://stellarburgers.nomoreparties.site/register");
     }
     @Test
     @DisplayName("1 successfully and 1 unsuccessfully (password shorter than 6 symbols) registration")
@@ -53,9 +54,9 @@ public class RegistrationTests {
         registrationPage.setPassword(password);
         registrationPage.clickButtonRegistration();
         if (password.length() >= 6) {
-            Assert.assertEquals("Вход", driver.findElement(By.xpath(".//h2[text()='Вход']")).getText());
+            assertEquals("Вход", driver.findElement(By.xpath(".//h2[text()='Вход']")).getText());
         } else {
-            Assert.assertEquals("Некорректный пароль", driver.findElement(By.xpath(".//p[text()='Некорректный пароль']")).getText());
+            assertEquals("Некорректный пароль", driver.findElement(By.xpath(".//p[text()='Некорректный пароль']")).getText());
         }
     }
    @After

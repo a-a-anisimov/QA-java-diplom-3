@@ -7,7 +7,7 @@ public class PersonalAccountPage {
     private WebDriver driver;
     private By buttonLogOutOfAccount = By.xpath(".//button[text()='Выход']");
     private By headerConstructor = By.xpath(".//p[text()='Конструктор']");
-    private By logo = By.xpath(".//a[@href='/']"); //надо проверить локатор
+    private By logo = By.xpath(".//a[@href='/']");
 
     public PersonalAccountPage(WebDriver driver) {
         this.driver = driver;

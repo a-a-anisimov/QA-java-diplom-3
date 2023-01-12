@@ -1,7 +1,9 @@
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pom.*;
@@ -60,6 +62,7 @@ public class LoginTests {
     }
     @After
     public void tearDown() {
+        Assert.assertTrue(driver.findElement(By.xpath(".//button[text()='Оформить заказ']")).isDisplayed());
         driver.quit();
     }
 }
