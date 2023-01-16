@@ -1,13 +1,12 @@
+import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pom.*;
-
 import java.util.concurrent.TimeUnit;
 
 public class LoginTests {
@@ -20,6 +19,7 @@ public class LoginTests {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
     @Test
+    @Step("Open site and login")
     @DisplayName("Login across HomePage")
     public void loginAcrossHomePage() {
         driver.get("https://stellarburgers.nomoreparties.site");
@@ -27,9 +27,10 @@ public class LoginTests {
         homePage.clickButtonPersonalAccount();
 
         loginPage = new LoginPage(driver);
-        loginPage.setData("aaa1@ya.ru", "aaaaaa1");
+        loginPage.login("aaa1@ya.ru", "aaaaaa1");
     }
     @Test
+    @Step("Open site and login")
     @DisplayName("Login across PersonalAccountPage")
     public void loginAcrossPersonalAccountPage() {
         driver.get("https://stellarburgers.nomoreparties.site");
@@ -38,9 +39,10 @@ public class LoginTests {
         PersonalAccountPage personalAccountPage = new PersonalAccountPage(driver);
 
         loginPage = new LoginPage(driver);
-        loginPage.setData("aaa1@ya.ru", "aaaaaa1");
+        loginPage.login("aaa1@ya.ru", "aaaaaa1");
     }
     @Test
+    @Step("Open site and login")
     @DisplayName("Login across RegistrationPage")
     public void loginAcrossRegistrationPage(){
         driver.get("https://stellarburgers.nomoreparties.site/register");
@@ -48,9 +50,10 @@ public class LoginTests {
         registrationPage.clickButtonEnter();
 
         loginPage = new LoginPage(driver);
-        loginPage.setData("aaa1@ya.ru", "aaaaaa1");
+        loginPage.login("aaa1@ya.ru", "aaaaaa1");
     }
     @Test
+    @Step("Open site and login")
     @DisplayName("Login across RecoveryPassword")
     public void loginAcrossRecoveryPassword(){
         driver.get("https://stellarburgers.nomoreparties.site/forgot-password");
@@ -58,11 +61,12 @@ public class LoginTests {
         passwordRecoveryPage.clickEnterPasswordRecoveryPage();
 
         loginPage = new LoginPage(driver);
-        loginPage.setData("aaa1@ya.ru", "aaaaaa1");
+        loginPage.login("aaa1@ya.ru", "aaaaaa1");
     }
     @After
     public void tearDown() {
-        Assert.assertTrue(driver.findElement(By.xpath(".//button[text()='Оформить заказ']")).isDisplayed());
+        HomePage homePage = new HomePage(driver);
+        Assert.assertTrue(homePage.isDisplayedCheckoutButton());
         driver.quit();
     }
 }

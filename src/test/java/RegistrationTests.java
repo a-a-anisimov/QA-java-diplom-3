@@ -1,4 +1,5 @@
 import com.github.javafaker.Faker;
+import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
@@ -8,14 +9,13 @@ import org.junit.runners.Parameterized;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pom.LoginPage;
 import pom.RegistrationPage;
-
 import java.util.concurrent.TimeUnit;
-
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(Parameterized.class)
-
 public class RegistrationTests {
     static
     Faker faker = new Faker();
@@ -30,7 +30,6 @@ public class RegistrationTests {
         this.email = email;
         this.password = password;
     }
-
     @Parameterized.Parameters(name = "name: {0}, email: {1}, password: {2}")
     public static Object[][] questionsAndAnswers() {
         return new Object[][]{
@@ -39,6 +38,7 @@ public class RegistrationTests {
         };
     }
     @Before
+    @Step("Open site")
     public void setUp(){
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
@@ -49,12 +49,10 @@ public class RegistrationTests {
     @DisplayName("1 successfully and 1 unsuccessfully (password shorter than 6 symbols) registration")
     public void setData() {
         registrationPage = new RegistrationPage(driver);
-        registrationPage.setName(name);
-        registrationPage.setEmail(email);
-        registrationPage.setPassword(password);
-        registrationPage.clickButtonRegistration();
+        registrationPage.registration(name, email, password);
+        LoginPage loginPage = new LoginPage(driver);
         if (password.length() >= 6) {
-            assertEquals("Вход", driver.findElement(By.xpath(".//h2[text()='Вход']")).getText());
+            assertTrue(loginPage.isDisplayedTextEnter());
         } else {
             assertEquals("Некорректный пароль", driver.findElement(By.xpath(".//p[text()='Некорректный пароль']")).getText());
         }
